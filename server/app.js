@@ -9,10 +9,10 @@ mongoose
   .then(() => console.log("Connected to MongoDB")) 
   .catch((error) => console.error("MongoDB connection error:", error)); 
  
-// STATIC DATA
-// Devs Team - Import the provided files with JSON data of students and cohorts here:
-const cohorts = require("./cohorts.json");
-const students = require("./students.json");
+
+// imported dynamic routes 31-05
+const cohortRoutes = require("./routes/cohorts.routes");
+const studentRoutes = require("./routes/students.routes");
 
 // INITIALIZE EXPRESS APP - https://expressjs.com/en/4x/api.html#express
 const app = express();
@@ -28,6 +28,10 @@ app.use(cookieParser());
 
 app.use(cors());
 
+// added dynamic routes 31-05
+app.use("/api/cohorts", cohortRoutes);
+app.use("/api/students", studentRoutes);
+
 // ROUTES - https://expressjs.com/en/starter/basic-routing.html
 // Devs Team - Start working on the routes here:
 app.get("/", (req, res) => {
@@ -38,13 +42,6 @@ app.get("/docs", (req, res) => {
   res.sendFile(__dirname + "/views/docs.html");
 });
 
-app.get("/api/cohorts", (req, res) => {
-  res.json(cohorts);
-});
-
-app.get("/api/students", (req, res) => {
-  res.json(students);
-});
 
 // START SERVER
 app.listen(PORT, () => {
