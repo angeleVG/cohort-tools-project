@@ -1,6 +1,14 @@
 const router = require("express").Router();
 const Student = require("../models/Student.model");
 
+// READ students by cohort
+router.get("/cohort/:cohortId", (req, res) => {
+  Student.find({ cohort: req.params.cohortId })
+    .populate("cohort")
+    .then(students => res.json(students))
+    .catch(err => res.status(500).json({ error: err.message }));
+});
+
 // CREATE student
 router.post("/", (req, res) => {
   Student.create(req.body)
@@ -11,15 +19,7 @@ router.post("/", (req, res) => {
 // READ all students
 router.get("/", (req, res) => {
   Student.find()
-    .populate("cohort")
-    .then(students => res.json(students))
-    .catch(err => res.status(500).json({ error: err.message }));
-});
-
-// READ students by cohort
-router.get("/cohort/:cohortId", (req, res) => {
-  Student.find({ cohort: req.params.cohortId })
-    .populate("cohort")
+.populate("cohort") 
     .then(students => res.json(students))
     .catch(err => res.status(500).json({ error: err.message }));
 });

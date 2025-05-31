@@ -10,7 +10,7 @@ mongoose
   .catch((error) => console.error("MongoDB connection error:", error)); 
  
 
-// imported dynamic routes 31-05
+// imported dynamic routes
 const cohortRoutes = require("./routes/cohorts.routes");
 const studentRoutes = require("./routes/students.routes");
 
@@ -28,7 +28,7 @@ app.use(cookieParser());
 
 app.use(cors());
 
-// added dynamic routes 31-05
+// added dynamic routes
 app.use("/api/cohorts", cohortRoutes);
 app.use("/api/students", studentRoutes);
 
