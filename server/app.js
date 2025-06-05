@@ -3,16 +3,18 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const PORT = 5005;
 const mongoose = require('mongoose');
+const { errorHandler, notFoundHandler } = require("./middleware/errorHandler")
 
 mongoose 
   .connect("mongodb://127.0.0.1:27017/cohort-tools-api") 
   .then(() => console.log("Connected to MongoDB")) 
   .catch((error) => console.error("MongoDB connection error:", error)); 
- 
+
 
 // imported dynamic routes
 const cohortRoutes = require("./routes/cohorts.routes");
 const studentRoutes = require("./routes/students.routes");
+
 
 // INITIALIZE EXPRESS APP - https://expressjs.com/en/4x/api.html#express
 const app = express();
@@ -42,6 +44,8 @@ app.get("/docs", (req, res) => {
   res.sendFile(__dirname + "/views/docs.html");
 });
 
+app.use(notFoundHandler);
+app.use(errorHandler);
 
 // START SERVER
 app.listen(PORT, () => {
