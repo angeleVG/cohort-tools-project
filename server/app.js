@@ -47,6 +47,7 @@ app.get("/docs", (req, res) => {
 app.use(notFoundHandler);
 app.use(errorHandler);
 
+                    
 // START SERVER
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
