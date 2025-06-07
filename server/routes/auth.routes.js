@@ -1,5 +1,3 @@
-// routes/auth.routes.js
-
 const express = require("express");
 const bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken");
@@ -7,6 +5,10 @@ const User = require("../models/User.model");
 
 const router = express.Router();
 const saltRounds = 10;
+
+// GET  /auth/verify
+const { isAuthenticated } = require("./../middleware/jwt.middleware.js"); 
+ 
 
 // POST  /auth/signup
 router.post('/signup', (req, res, next) => {
@@ -114,10 +116,7 @@ router.post('/login', (req, res, next) => {
     })
     .catch(err => res.status(500).json({ message: "Internal Server Error" }));
 });
- 
 
-// GET  /auth/verify
-const { isAuthenticated } = require("../middleware/jwt.middleware");
 
 router.get("/verify", isAuthenticated, (req, res, next) => {
   // If the JWT is valid, payload is available in req.payload
