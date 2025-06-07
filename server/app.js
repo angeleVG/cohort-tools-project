@@ -1,3 +1,7 @@
+ // Gets access to environment variables/settings
+// https://www.npmjs.com/package/dotenv
+require("dotenv").config();
+
 const express = require("express");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
