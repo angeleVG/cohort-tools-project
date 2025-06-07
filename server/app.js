@@ -21,11 +21,6 @@ const studentRoutes = require("./routes/students.routes");
 const app = express();
 const cors = require("cors");
 
-// activate route in User.routes
-const userRouter = require("./routes/user.routes");
-app.use("/api/users", userRouter);
-app.use("/auth", authRouter);
-
 // MIDDLEWARE
 // Research Team - Set up CORS middleware here:
 app.use(express.json());
@@ -35,6 +30,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use(cors());
+
+
+// activate route in User.routes
+const userRouter = require("./routes/user.routes");
+app.use("/api/users", userRouter);
+app.use("/auth", authRouter);
 
 // added dynamic routes
 app.use("/api/cohorts", cohortRoutes);
